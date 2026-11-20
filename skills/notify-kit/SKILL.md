@@ -30,34 +30,42 @@ npm install notify-kit
 
 ## 3. Step-by-Step Implementation Workflow
 
-### Step 1: Inspect the Existing Application
+### Step 1: Inspect the Existing Application & Discover Product Branding
 1. Read `package.json` to identify:
+   - Application/product name (`"name"` field, title tag in public templates, or layout metadata).
    - Framework (`express`, `fastify`, `next`, `nest`, etc.).
    - Module format (ESM or CommonJS).
-2. Locate where the target business event occurs (e.g. `registerUser()`, `createOrder()`, `processCheckout()`).
-3. Locate existing environment variable configuration (`.env`, `.env.example`).
+2. **Discover product branding**:
+   - Locate the product's primary brand color from Tailwind config, CSS root variables (`--primary`), or style sheets.
+   - Locate the logo URL/path (`public/logo.png`, `public/icon.png`) and support email.
+3. Locate where the target business event occurs (e.g. `registerUser()`, `createOrder()`, `processCheckout()`).
+4. Locate existing environment variable configuration (`.env`, `.env.example`).
 
-### Step 2: Proactive SMTP Verification & Interactive Setup Offer
-Check if `.env` already has active SMTP credentials:
+### Step 2: Proactive SMTP Verification, Product Branding & Setup
+Check if `.env` already has active SMTP credentials and product details:
 
-1. **If SMTP credentials are missing**, ask the developer immediately:
+1. **Brand & Product Customization**:
+   - Confirm or ask for the product name and primary brand color:
+     > *"I found your product name **[Product Name]** and brand color **[#color]**. I will apply these to your email notification templates so that customer receipts and welcome emails match your product branding."*
+
+2. **If SMTP credentials are missing**, ask the developer immediately:
    > *"I see your application needs to send transactional emails, but SMTP credentials aren't configured yet.*
    > 
    > *Do you already have your SMTP details (like a Gmail App Password, Resend, or SendGrid API key), or would you like me to walk you through how to generate a free Gmail App Password step-by-step?"*
 
-2. **If the developer responds "Yes" or asks for setup instructions**:
+3. **If the developer responds "Yes" or asks for setup instructions**:
    Walk them through the Gmail App Password flow:
    - **Step A**: Ensure **2-Step Verification** is enabled on Google Account: `https://myaccount.google.com/security`.
    - **Step B**: Go to `https://myaccount.google.com/apppasswords` and generate an App Password.
    - **Step C**: Instruct them to add it to their local `.env` file under `SMTP_PASS` (remind them: **do NOT paste it into chat**).
 
-3. **Local Development Without SMTP Credentials (Mock Transport)**:
+4. **Local Development Without SMTP Credentials (Mock Transport)**:
    If SMTP credentials are not yet configured, initialize `Notify` in mock mode using `jsonTransport: true`.
    > [!IMPORTANT]
    > Neither `notify-kit` nor `email-auth-kit` reads `USE_MOCK_SMTP`. Do **not** tell developers that setting an environment variable like `USE_MOCK_SMTP=true` automatically activates mock mode. Mock mode is activated strictly in code by passing `jsonTransport: true`.
 
    Tell the developer:
-   > *"Since SMTP credentials aren't set yet, I'll initialize `Notify` in mock transport mode (`jsonTransport: true`). This tests notification and template generation safely in memory without sending real emails. Once you add your SMTP credentials to `.env`, we'll replace mock mode with your live SMTP configuration."*
+   > *"Since SMTP credentials aren't set yet, I'll initialize `Notify` in mock transport mode (`jsonTransport: true`). This tests notification and template generation safely in memory with your product branding without sending real emails. Once you add your SMTP credentials to `.env`, we'll replace mock mode with your live SMTP configuration."*
 
    > [!WARNING]
    > Keep mock mode restricted strictly to local development and automated tests. Never enable it silently in production. When real SMTP credentials become available, replace mock mode with the actual SMTP configuration.

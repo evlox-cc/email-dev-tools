@@ -31,38 +31,47 @@ npm install email-auth-kit
 
 Follow these eight steps systematically:
 
-### Step 1: Inspect the Existing Application
+### Step 1: Inspect the Existing Application & Discover Product Branding
 Before modifying any files:
 1. Check `package.json` to detect:
+   - Application/product name (`"name"` field, title in `index.html`, or metadata in layout/app files).
    - Node.js version and module type (`"type": "module"` for ESM or CommonJS).
    - Backend framework (`express`, `fastify`, `next`, `@nestjs/core`, etc.).
    - Database / ORM (`prisma`, `drizzle-orm`, `mongoose`, `pg`, `typeorm`, etc.).
    - Existing authentication or session library (`iron-session`, `express-session`, `jsonwebtoken`, `lucia`, etc.).
-2. Locate existing environment variable files (`.env`, `.env.example`, `.env.local`).
-3. Locate existing API routes or controllers directory.
+2. **Inspect styling & brand design tokens**:
+   - Inspect CSS, Tailwind configs (`tailwind.config.js`, `globals.css`), theme files, or UI configs to find the **product's primary brand color** (e.g. `primary: '#6366f1'` or `#059669`).
+   - Check public assets for the product logo (`public/logo.png`, `public/favicon.svg`, etc.).
+3. Locate existing environment variable files (`.env`, `.env.example`, `.env.local`).
+4. Locate existing API routes or controllers directory.
 
-### Step 2: Proactive SMTP Verification & Interactive Setup Offer
-Right after inspecting the project, check if `.env` already has valid `SMTP_HOST`, `SMTP_USER`, and `SMTP_PASS`:
+### Step 2: Proactive SMTP Verification, Product Branding & Setup
+Right after inspecting the project:
 
-1. **If SMTP credentials are missing or placeholders**, prompt the developer immediately:
+1. **Brand & Product Customization**:
+   - Confirm or ask for the product details:
+     > *"I found your product name **[Product Name]** and brand color **[#color]**. I will configure your email OTP templates with your exact product name, logo, and brand color so the emails match your app's visual identity."*
+   - If not discoverable, ask: *"What is your product/app name, primary brand color (hex), and support email for the OTP emails?"*
+
+2. **If SMTP credentials are missing or placeholders**, prompt the developer immediately:
    > *"I noticed your project doesn't have SMTP credentials configured yet. To send real verification emails, we'll need your SMTP settings (like Gmail, Resend, or SendGrid).*
    > 
    > *Do you already know how to get your SMTP credentials (like a Gmail App Password), or would you like me to walk you through the step-by-step setup?"*
 
-2. **When the developer says "Yes, walk me through" or "How do I set it up?"**:
+3. **When the developer says "Yes, walk me through" or "How do I set it up?"**:
    Provide the exact, crystal-clear 3-step setup guide:
    - **Step A**: Go to Google Account Security (`https://myaccount.google.com/security`) and verify **2-Step Verification** is turned ON.
    - **Step B**: Visit `https://myaccount.google.com/apppasswords`, type an App name (e.g. `MyApp`), and generate the **16-character App Password**.
    - **Step C**: Instruct them:
      > *"Please paste that 16-character password into your local `.env` file under `SMTP_PASS` (without spaces). **Never paste your password into this chat!**"*
 
-3. **Local Development Without SMTP Credentials (Mock Transport)**:
+4. **Local Development Without SMTP Credentials (Mock Transport)**:
    If SMTP credentials are not yet configured, initialize `EmailAuth` in mock mode using `jsonTransport: true`.
    > [!IMPORTANT]
    > Neither `email-auth-kit` nor `notify-kit` reads `USE_MOCK_SMTP`. Do **not** tell developers that setting an environment variable like `USE_MOCK_SMTP=true` automatically activates mock mode. Mock mode is activated strictly in code by passing `jsonTransport: true`.
    
    Tell the developer:
-   > *"Since SMTP credentials aren't set yet, I'll initialize `EmailAuth` in mock transport mode (`jsonTransport: true`). This tests email and OTP generation safely in memory without sending real emails. Once you add your SMTP credentials to `.env`, we'll replace mock mode with your live SMTP configuration."*
+   > *"Since SMTP credentials aren't set yet, I'll initialize `EmailAuth` in mock transport mode (`jsonTransport: true`). This tests email and OTP generation safely in memory with your product branding without sending real emails. Once you add your SMTP credentials to `.env`, we'll replace mock mode with your live SMTP configuration."*
 
    > [!WARNING]
    > Keep mock mode restricted strictly to local development and automated tests. Never enable it silently in production. When real SMTP credentials become available, replace mock mode with the actual SMTP configuration.
