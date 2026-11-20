@@ -68,16 +68,22 @@ EMAIL_FROM="Acme <support@yourdomain.com>"
 
 ---
 
-## 3. Mock Testing Without Real SMTP
+## 3. Local Development & Mock Transport
 
-For automated tests and local CI:
+When developing locally or running automated tests without real SMTP credentials, initialize `Notify` with mock transport using `jsonTransport: true`:
+
 ```javascript
 import { Notify } from "notify-kit";
 
+// Mock transport: tests notification and template generation in memory without sending real emails
 export const notify = new Notify({
-  jsonTransport: true,
-  from: '"Test Sender" <test@example.com>'
+  from: process.env.EMAIL_FROM || "Test App <test@example.com>",
+  jsonTransport: true
 });
 ```
-`jsonTransport: true` captures sent emails in memory without network calls.
+
+### Important Rules for Mock Mode:
+1. **No Automatic Environment Variable**: Neither `notify-kit` nor `email-auth-kit` reads `USE_MOCK_SMTP`. Mock mode is enabled strictly in code via `jsonTransport: true`.
+2. **Local and Test Use Only**: Keep mock mode restricted to local development and automated CI tests. Never enable it silently in production environments.
+3. **Transition to Production**: When real SMTP credentials become available, replace `jsonTransport: true` with the actual `smtp: { host, port, secure, auth }` configuration.
 

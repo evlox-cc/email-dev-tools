@@ -56,9 +56,16 @@ Right after inspecting the project, check if `.env` already has valid `SMTP_HOST
    - **Step C**: Instruct them:
      > *"Please paste that 16-character password into your local `.env` file under `SMTP_PASS` (without spaces). **Never paste your password into this chat!**"*
 
-3. **Confirm Non-Blocking Development**:
-   If the developer does not have credentials right now, reassure them:
-   > *"No worries! I've set `USE_MOCK_SMTP=true` so you can test and vibe-code the full login UI immediately without waiting. Once you have credentials, just add them to `.env`."*
+3. **Local Development Without SMTP Credentials (Mock Transport)**:
+   If SMTP credentials are not yet configured, initialize `EmailAuth` in mock mode using `jsonTransport: true`.
+   > [!IMPORTANT]
+   > Neither `email-auth-kit` nor `notify-kit` reads `USE_MOCK_SMTP`. Do **not** tell developers that setting an environment variable like `USE_MOCK_SMTP=true` automatically activates mock mode. Mock mode is activated strictly in code by passing `jsonTransport: true`.
+   
+   Tell the developer:
+   > *"Since SMTP credentials aren't set yet, I'll initialize `EmailAuth` in mock transport mode (`jsonTransport: true`). This tests email and OTP generation safely in memory without sending real emails. Once you add your SMTP credentials to `.env`, we'll replace mock mode with your live SMTP configuration."*
+
+   > [!WARNING]
+   > Keep mock mode restricted strictly to local development and automated tests. Never enable it silently in production. When real SMTP credentials become available, replace mock mode with the actual SMTP configuration.
 
 > [!CAUTION]
 > **Secret Handling Rule**: NEVER ask the developer to paste SMTP passwords into the AI chat. Instruct them to place secrets directly into their `.env` file. Never print secrets to terminal logs.
@@ -78,7 +85,30 @@ Provide the developer with setup instructions from [SMTP Setup Reference](refere
 Ensure `.env` is listed in `.gitignore`.
 
 ### Step 4: Initialize `EmailAuth`
-Create a centralized auth client module (e.g. `lib/email-auth.js` or `src/lib/email-auth.js`):
+Create a centralized auth client module (e.g. `lib/email-auth.js` or `src/lib/email-auth.js`).
+
+**When SMTP credentials are unavailable (Local Development / Mock Mode):**
+Initialize using `jsonTransport: true` to test email generation without sending real emails:
+```javascript
+import { EmailAuth } from "email-auth-kit";
+
+export const auth = new EmailAuth({
+  from: process.env.EMAIL_FROM || "Test App <test@example.com>",
+  jsonTransport: true,
+  otp: {
+    length: 6,
+    expiresIn: 300,
+    maxAttempts: 5
+  },
+  branding: {
+    appName: process.env.APP_NAME || "My Application",
+    primaryColor: "#2563eb"
+  }
+});
+```
+
+**When real SMTP credentials become available (Live Delivery Mode):**
+Replace the mock initialization with the actual SMTP configuration:
 ```javascript
 import { EmailAuth } from "email-auth-kit";
 

@@ -82,10 +82,22 @@ EMAIL_FROM="Acme <auth@yourdomain.com>"
 
 ---
 
-## 3. Local Development & Testing
+## 3. Local Development & Mock Transport
 
-When testing locally without sending real emails:
-- **Ethereal Email**: Generate disposable test accounts with `nodemailer.createTestAccount()`.
-- **Mock Transport**: `jsonTransport: true` captures email payloads in memory without connecting to any external network.
-- **MailHog / Mailpit**: Local SMTP catch-all servers running on `localhost:1025`.
+When developing locally or running automated tests without real SMTP credentials, initialize `EmailAuth` with mock transport using `jsonTransport: true`:
+
+```javascript
+import { EmailAuth } from "email-auth-kit";
+
+// Mock transport: tests email and OTP generation in memory without sending real emails
+export const auth = new EmailAuth({
+  from: process.env.EMAIL_FROM || "Test App <test@example.com>",
+  jsonTransport: true
+});
+```
+
+### Important Rules for Mock Mode:
+1. **No Automatic Environment Variable**: Neither `email-auth-kit` nor `notify-kit` reads `USE_MOCK_SMTP`. Mock mode is enabled strictly in code via `jsonTransport: true`.
+2. **Local and Test Use Only**: Keep mock mode restricted to local development and automated CI tests. Never enable it silently in production environments.
+3. **Transition to Production**: When real SMTP credentials become available, replace `jsonTransport: true` with the actual `smtp: { host, port, secure, auth }` configuration.
 

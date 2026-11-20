@@ -51,9 +51,16 @@ Check if `.env` already has active SMTP credentials:
    - **Step B**: Go to `https://myaccount.google.com/apppasswords` and generate an App Password.
    - **Step C**: Instruct them to add it to their local `.env` file under `SMTP_PASS` (remind them: **do NOT paste it into chat**).
 
-3. **Offer Instant Prototyping**:
-   If they want to continue building before configuring SMTP:
-   > *"We can keep building right away! I'll enable mock transport (`USE_MOCK_SMTP=true`) so you can test all email templates and routes without sending real emails. You can plug in your credentials whenever you're ready."*
+3. **Local Development Without SMTP Credentials (Mock Transport)**:
+   If SMTP credentials are not yet configured, initialize `Notify` in mock mode using `jsonTransport: true`.
+   > [!IMPORTANT]
+   > Neither `notify-kit` nor `email-auth-kit` reads `USE_MOCK_SMTP`. Do **not** tell developers that setting an environment variable like `USE_MOCK_SMTP=true` automatically activates mock mode. Mock mode is activated strictly in code by passing `jsonTransport: true`.
+
+   Tell the developer:
+   > *"Since SMTP credentials aren't set yet, I'll initialize `Notify` in mock transport mode (`jsonTransport: true`). This tests notification and template generation safely in memory without sending real emails. Once you add your SMTP credentials to `.env`, we'll replace mock mode with your live SMTP configuration."*
+
+   > [!WARNING]
+   > Keep mock mode restricted strictly to local development and automated tests. Never enable it silently in production. When real SMTP credentials become available, replace mock mode with the actual SMTP configuration.
 
 > [!CAUTION]
 > NEVER request the developer's normal Google Account password or ask them to type credentials into the conversation. Instruct them to add secrets directly to their local `.env`.
@@ -71,7 +78,26 @@ EMAIL_FROM="My Application <notifications@example.com>"
 Direct developer to [SMTP Setup](references/smtp-setup.md) for generating credentials.
 
 ### Step 4: Initialize the `Notify` Client
-Create a singleton notification client (e.g. `lib/notifications.js`):
+Create a singleton notification client (e.g. `lib/notifications.js`).
+
+**When SMTP credentials are unavailable (Local Development / Mock Mode):**
+Initialize using `jsonTransport: true` to test email generation without sending real emails:
+```javascript
+import { Notify } from "notify-kit";
+
+export const notify = new Notify({
+  from: process.env.EMAIL_FROM || "Test App <test@example.com>",
+  jsonTransport: true,
+  branding: {
+    appName: process.env.APP_NAME || "My Application",
+    primaryColor: "#2563eb",
+    supportEmail: process.env.SUPPORT_EMAIL || "support@example.com"
+  }
+});
+```
+
+**When real SMTP credentials become available (Live Delivery Mode):**
+Replace the mock initialization with the actual SMTP configuration:
 ```javascript
 import { Notify } from "notify-kit";
 
