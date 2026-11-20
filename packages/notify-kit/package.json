@@ -1,0 +1,48 @@
+{
+  "name": "notify-kit",
+  "version": "1.0.0",
+  "description": "Simple transactional email notifications with responsive templates for Node.js",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./errors": "./src/errors.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "keywords": [
+    "email",
+    "notifications",
+    "transactional-email",
+    "smtp",
+    "welcome-email",
+    "order-confirmation",
+    "templates",
+    "nodemailer",
+    "ai-agent",
+    "skills"
+  ],
+  "author": "",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "nodemailer": "^6.10.0"
+  },
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  }
+}

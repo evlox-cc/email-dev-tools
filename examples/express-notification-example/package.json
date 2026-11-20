@@ -1,0 +1,15 @@
+{
+  "name": "express-notification-example",
+  "version": "1.0.0",
+  "description": "Express transactional notification example using notify-kit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "notify-kit": "file:../../packages/notify-kit"
+  }
+}
+

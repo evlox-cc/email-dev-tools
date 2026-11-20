@@ -1,0 +1,28 @@
+{
+  "name": "email-dev-tools",
+  "version": "1.0.0",
+  "description": "AI-agent-ready developer tools ecosystem for email authentication and notifications",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node ./node_modules/vitest/vitest.mjs run",
+    "test:watch": "node ./node_modules/vitest/vitest.mjs",
+    "test:coverage": "node ./node_modules/vitest/vitest.mjs run --coverage",
+    "lint": "node ./node_modules/eslint/bin/eslint.js packages/",
+    "format": "node ./node_modules/prettier/bin/prettier.cjs --write \"**/*.{js,json,md}\"",
+    "format:check": "node ./node_modules/prettier/bin/prettier.cjs --check \"**/*.{js,json,md}\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "eslint": "^9.20.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.0",
+    "vitest": "^3.0.5"
+  }
+}

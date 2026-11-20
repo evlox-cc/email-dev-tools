@@ -1,0 +1,47 @@
+{
+  "name": "email-auth-kit",
+  "version": "1.0.0",
+  "description": "Simple, secure email OTP authentication, verification, and password reset utilities for Node.js",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./errors": "./src/errors.js",
+    "./store": "./src/store/index.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "keywords": [
+    "email",
+    "auth",
+    "otp",
+    "authentication",
+    "one-time-password",
+    "smtp",
+    "password-reset",
+    "email-verification",
+    "nodemailer",
+    "ai-agent",
+    "skills"
+  ],
+  "author": "",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "nodemailer": "^6.10.0"
+  }
+}
+

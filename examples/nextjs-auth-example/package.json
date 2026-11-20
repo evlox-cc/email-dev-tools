@@ -1,0 +1,19 @@
+{
+  "name": "nextjs-auth-example",
+  "version": "1.0.0",
+  "description": "Next.js App Router OTP authentication example with email-auth-kit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "email-auth-kit": "file:../../packages/email-auth-kit",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
+
