@@ -41,11 +41,24 @@ Before modifying any files:
 2. Locate existing environment variable files (`.env`, `.env.example`, `.env.local`).
 3. Locate existing API routes or controllers directory.
 
-### Step 2: Ask for Missing Information
-Ask **only** what cannot be detected from the codebase:
-- Desired sender email and display name (e.g. `"Acme Auth <auth@example.com>"`).
-- Preferred SMTP provider (Gmail App Password vs. Resend/SendGrid/SES).
-- Target user model integration (does the app already have a users table?).
+### Step 2: Proactive SMTP Verification & Interactive Setup Offer
+Right after inspecting the project, check if `.env` already has valid `SMTP_HOST`, `SMTP_USER`, and `SMTP_PASS`:
+
+1. **If SMTP credentials are missing or placeholders**, prompt the developer immediately:
+   > *"I noticed your project doesn't have SMTP credentials configured yet. To send real verification emails, we'll need your SMTP settings (like Gmail, Resend, or SendGrid).*
+   > 
+   > *Do you already know how to get your SMTP credentials (like a Gmail App Password), or would you like me to walk you through the step-by-step setup?"*
+
+2. **When the developer says "Yes, walk me through" or "How do I set it up?"**:
+   Provide the exact, crystal-clear 3-step setup guide:
+   - **Step A**: Go to Google Account Security (`https://myaccount.google.com/security`) and verify **2-Step Verification** is turned ON.
+   - **Step B**: Visit `https://myaccount.google.com/apppasswords`, type an App name (e.g. `MyApp`), and generate the **16-character App Password**.
+   - **Step C**: Instruct them:
+     > *"Please paste that 16-character password into your local `.env` file under `SMTP_PASS` (without spaces). **Never paste your password into this chat!**"*
+
+3. **Confirm Non-Blocking Development**:
+   If the developer does not have credentials right now, reassure them:
+   > *"No worries! I've set `USE_MOCK_SMTP=true` so you can test and vibe-code the full login UI immediately without waiting. Once you have credentials, just add them to `.env`."*
 
 > [!CAUTION]
 > **Secret Handling Rule**: NEVER ask the developer to paste SMTP passwords into the AI chat. Instruct them to place secrets directly into their `.env` file. Never print secrets to terminal logs.

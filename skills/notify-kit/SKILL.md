@@ -37,11 +37,23 @@ npm install notify-kit
 2. Locate where the target business event occurs (e.g. `registerUser()`, `createOrder()`, `processCheckout()`).
 3. Locate existing environment variable configuration (`.env`, `.env.example`).
 
-### Step 2: Ask for Missing Information
-Ask only for information not discoverable from the project:
-- Sender email address and display name (`EMAIL_FROM`).
-- SMTP provider choice (Gmail App Password, Resend, SendGrid, SES).
-- Application branding details (App Name, Primary Hex Color, Support Email).
+### Step 2: Proactive SMTP Verification & Interactive Setup Offer
+Check if `.env` already has active SMTP credentials:
+
+1. **If SMTP credentials are missing**, ask the developer immediately:
+   > *"I see your application needs to send transactional emails, but SMTP credentials aren't configured yet.*
+   > 
+   > *Do you already have your SMTP details (like a Gmail App Password, Resend, or SendGrid API key), or would you like me to walk you through how to generate a free Gmail App Password step-by-step?"*
+
+2. **If the developer responds "Yes" or asks for setup instructions**:
+   Walk them through the Gmail App Password flow:
+   - **Step A**: Ensure **2-Step Verification** is enabled on Google Account: `https://myaccount.google.com/security`.
+   - **Step B**: Go to `https://myaccount.google.com/apppasswords` and generate an App Password.
+   - **Step C**: Instruct them to add it to their local `.env` file under `SMTP_PASS` (remind them: **do NOT paste it into chat**).
+
+3. **Offer Instant Prototyping**:
+   If they want to continue building before configuring SMTP:
+   > *"We can keep building right away! I'll enable mock transport (`USE_MOCK_SMTP=true`) so you can test all email templates and routes without sending real emails. You can plug in your credentials whenever you're ready."*
 
 > [!CAUTION]
 > NEVER request the developer's normal Google Account password or ask them to type credentials into the conversation. Instruct them to add secrets directly to their local `.env`.
