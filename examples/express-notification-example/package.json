@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "express": "^4.21.2",
-    "notify-kit": "file:../../packages/notify-kit"
+    "@evlox/notify-kit": "file:../../packages/notify-kit"
   }
 }
 

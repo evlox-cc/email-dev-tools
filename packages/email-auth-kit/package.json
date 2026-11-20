@@ -1,5 +1,5 @@
 {
-  "name": "email-auth-kit",
+  "name": "@evlox/email-auth-kit",
   "version": "1.0.0",
   "description": "Simple, secure email OTP authentication, verification, and password reset utilities for Node.js",
   "type": "module",

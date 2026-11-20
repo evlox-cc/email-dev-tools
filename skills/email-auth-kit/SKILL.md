@@ -5,7 +5,7 @@ description: Production-grade AI agent skill to implement secure, branded email 
 
 # email-auth-kit Agent Skill (v1.0 Production Edition)
 
-This skill guides AI coding agents in delivering an enterprise-ready, beautifully branded email OTP authentication flow using `email-auth-kit`.
+This skill guides AI coding agents in delivering an enterprise-ready, beautifully branded email OTP authentication flow using `@evlox/email-auth-kit`.
 
 ---
 
@@ -13,7 +13,7 @@ This skill guides AI coding agents in delivering an enterprise-ready, beautifull
 
 Activate this skill when:
 - The developer asks to implement email OTP authentication, magic code login, or passwordless email login.
-- The developer asks to add email verification links or password reset flows with `email-auth-kit`.
+- The developer asks to add email verification links or password reset flows with `@evlox/email-auth-kit`.
 - The developer asks to set up Gmail or custom SMTP authentication in a Node.js project.
 
 ---
@@ -22,7 +22,7 @@ Activate this skill when:
 
 Install the package via npm:
 ```bash
-npm install email-auth-kit
+npm install @evlox/email-auth-kit
 ```
 
 ---
@@ -75,7 +75,7 @@ Engage the developer professionally to align the product identity and SMTP trans
    > *"Since SMTP credentials aren't set yet, I'll initialize `EmailAuth` in mock transport mode (`jsonTransport: true`). This tests email and OTP generation safely in memory with your product branding without sending real emails. Once you add your SMTP credentials to `.env`, we'll replace mock mode with your live SMTP configuration."*
 
    > [!WARNING]
-   > Neither `email-auth-kit` nor `notify-kit` reads `USE_MOCK_SMTP`. Mock mode is activated strictly in code via `jsonTransport: true`. Keep mock mode restricted to local development; never enable it silently in production.
+   > Neither `@evlox/email-auth-kit` nor `@evlox/notify-kit` reads `USE_MOCK_SMTP`. Mock mode is activated strictly in code via `jsonTransport: true`. Keep mock mode restricted to local development; never enable it silently in production.
 
 ### Step 3: Configure Environment Variables
 Create or update `.env.example` with safe placeholders:
@@ -95,7 +95,7 @@ Create a centralized auth client (e.g. `lib/email-auth.js`):
 
 **Production / Live SMTP Mode:**
 ```javascript
-import { EmailAuth } from "email-auth-kit";
+import { EmailAuth } from "@evlox/email-auth-kit";
 
 export const auth = new EmailAuth({
   smtp: {
@@ -125,7 +125,7 @@ export const auth = new EmailAuth({
 
 **Development Mock Mode (When SMTP is not yet configured):**
 ```javascript
-import { EmailAuth } from "email-auth-kit";
+import { EmailAuth } from "@evlox/email-auth-kit";
 
 export const auth = new EmailAuth({
   from: process.env.EMAIL_FROM || '"My Product" <auth@myproduct.com>',

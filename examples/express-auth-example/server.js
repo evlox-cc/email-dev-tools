@@ -1,12 +1,12 @@
 import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { EmailAuth, InMemoryOTPStore } from "email-auth-kit";
+import { EmailAuth, InMemoryOTPStore } from "@evlox/email-auth-kit";
 import {
   OTPExpiredError,
   InvalidOTPError,
   MaxAttemptsExceededError
-} from "email-auth-kit/errors";
+} from "@evlox/@evlox/email-auth-kit/errors";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

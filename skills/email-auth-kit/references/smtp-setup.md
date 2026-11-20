@@ -1,6 +1,6 @@
 # SMTP Configuration Reference for email-auth-kit
 
-This guide explains how to configure SMTP credentials securely for `email-auth-kit`.
+This guide explains how to configure SMTP credentials securely for `@evlox/email-auth-kit`.
 
 ## 1. Gmail SMTP Setup (App Passwords)
 
@@ -87,7 +87,7 @@ EMAIL_FROM="Acme <auth@yourdomain.com>"
 When developing locally or running automated tests without real SMTP credentials, initialize `EmailAuth` with mock transport using `jsonTransport: true`:
 
 ```javascript
-import { EmailAuth } from "email-auth-kit";
+import { EmailAuth } from "@evlox/email-auth-kit";
 
 // Mock transport: tests email and OTP generation in memory without sending real emails
 export const auth = new EmailAuth({
@@ -97,7 +97,7 @@ export const auth = new EmailAuth({
 ```
 
 ### Important Rules for Mock Mode:
-1. **No Automatic Environment Variable**: Neither `email-auth-kit` nor `notify-kit` reads `USE_MOCK_SMTP`. Mock mode is enabled strictly in code via `jsonTransport: true`.
+1. **No Automatic Environment Variable**: Neither `@evlox/email-auth-kit` nor `@evlox/notify-kit` reads `USE_MOCK_SMTP`. Mock mode is enabled strictly in code via `jsonTransport: true`.
 2. **Local and Test Use Only**: Keep mock mode restricted to local development and automated CI tests. Never enable it silently in production environments.
 3. **Transition to Production**: When real SMTP credentials become available, replace `jsonTransport: true` with the actual `smtp: { host, port, secure, auth }` configuration.
 

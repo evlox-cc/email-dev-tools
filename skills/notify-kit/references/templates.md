@@ -1,6 +1,6 @@
 # Template Customization Reference for notify-kit
 
-`notify-kit` comes with pre-built responsive HTML templates and a custom template registry.
+`@evlox/notify-kit` comes with pre-built responsive HTML templates and a custom template registry.
 
 ---
 
@@ -110,7 +110,7 @@ await notify.send({
 
 Always escape dynamic user-generated content before rendering inside templates:
 ```javascript
-import { escapeHtml } from "notify-kit";
+import { escapeHtml } from "@evlox/notify-kit";
 
 const safeComment = escapeHtml(userInputComment);
 ```

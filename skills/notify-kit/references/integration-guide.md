@@ -45,7 +45,7 @@ return res.json({ success: true, orderId: order.id });
 
 ```javascript
 import express from "express";
-import { Notify } from "notify-kit";
+import { Notify } from "@evlox/notify-kit";
 
 const router = express.Router();
 
@@ -96,7 +96,7 @@ export default router;
 ```javascript
 // Next.js App Router: app/api/register/route.js
 import { NextResponse } from "next/server";
-import { Notify } from "notify-kit";
+import { Notify } from "@evlox/notify-kit";
 
 const notify = new Notify({
   smtp: {
@@ -143,7 +143,7 @@ await emailQueue.add("send-order-confirmation", {
 
 // Worker Processor:
 import { Worker } from "bullmq";
-import { Notify } from "notify-kit";
+import { Notify } from "@evlox/notify-kit";
 
 const notify = new Notify({ ... });
 

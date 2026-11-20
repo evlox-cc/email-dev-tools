@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { EmailAuth } from "email-auth-kit";
+import { EmailAuth } from "@evlox/email-auth-kit";
 
 const isMock = process.env.USE_MOCK_SMTP !== "false";
 

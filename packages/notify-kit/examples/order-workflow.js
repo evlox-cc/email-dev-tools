@@ -5,7 +5,7 @@
  * 2. Send email in background or asynchronously so email failures do not roll back successful orders.
  * 3. Log errors without crashing the main request thread.
  */
-import { Notify } from "notify-kit";
+import { Notify } from "@evlox/notify-kit";
 
 const notify = new Notify({
   jsonTransport: true, // replace with real smtp in production

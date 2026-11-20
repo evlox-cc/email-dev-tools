@@ -3,7 +3,7 @@
 Simple transactional email and notification library for Node.js with responsive HTML templates.
 
 ```bash
-npm install notify-kit
+npm install @evlox/notify-kit
 ```
 
 ---
@@ -18,14 +18,14 @@ npm install notify-kit
 - Typed error classes for reliable error handling
 - Safe HTML escaping on all template variables
 - Gmail SMTP and any generic SMTP provider support
-- Zero dependency on `email-auth-kit` — fully independent package
+- Zero dependency on `@evlox/email-auth-kit` — fully independent package
 
 ---
 
 ## Quick Start
 
 ```js
-import { Notify } from "notify-kit";
+import { Notify } from "@evlox/notify-kit";
 
 const notify = new Notify({
   smtp: {

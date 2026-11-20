@@ -1,6 +1,6 @@
 # Next.js App Router OTP Authentication Example
 
-This example demonstrates how to integrate `email-auth-kit` into a Next.js 14/15 application using App Router Route Handlers and a React Client Component.
+This example demonstrates how to integrate `@evlox/email-auth-kit` into a Next.js 14/15 application using App Router Route Handlers and a React Client Component.
 
 ## Architecture
 

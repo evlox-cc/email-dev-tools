@@ -73,7 +73,7 @@ EMAIL_FROM="Acme <support@yourdomain.com>"
 When developing locally or running automated tests without real SMTP credentials, initialize `Notify` with mock transport using `jsonTransport: true`:
 
 ```javascript
-import { Notify } from "notify-kit";
+import { Notify } from "@evlox/notify-kit";
 
 // Mock transport: tests notification and template generation in memory without sending real emails
 export const notify = new Notify({
@@ -83,7 +83,7 @@ export const notify = new Notify({
 ```
 
 ### Important Rules for Mock Mode:
-1. **No Automatic Environment Variable**: Neither `notify-kit` nor `email-auth-kit` reads `USE_MOCK_SMTP`. Mock mode is enabled strictly in code via `jsonTransport: true`.
+1. **No Automatic Environment Variable**: Neither `@evlox/notify-kit` nor `@evlox/email-auth-kit` reads `USE_MOCK_SMTP`. Mock mode is enabled strictly in code via `jsonTransport: true`.
 2. **Local and Test Use Only**: Keep mock mode restricted to local development and automated CI tests. Never enable it silently in production environments.
 3. **Transition to Production**: When real SMTP credentials become available, replace `jsonTransport: true` with the actual `smtp: { host, port, secure, auth }` configuration.
 

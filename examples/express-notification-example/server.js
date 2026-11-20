@@ -1,5 +1,5 @@
 import express from "express";
-import { Notify } from "notify-kit";
+import { Notify } from "@evlox/notify-kit";
 
 const app = express();
 const PORT = process.env.PORT || 3001;

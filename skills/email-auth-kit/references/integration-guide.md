@@ -1,6 +1,6 @@
 # email-auth-kit Framework Integration Guide
 
-This guide provides concrete, copy-paste-ready patterns for integrating `email-auth-kit` into various Node.js backend architectures and frontend frameworks.
+This guide provides concrete, copy-paste-ready patterns for integrating `@evlox/email-auth-kit` into various Node.js backend architectures and frontend frameworks.
 
 ---
 
@@ -11,7 +11,7 @@ Initialize `auth` once in a shared utility or service module, then mount API rou
 
 ```javascript
 // lib/auth.js
-import { EmailAuth } from "email-auth-kit";
+import { EmailAuth } from "@evlox/email-auth-kit";
 
 export const emailAuth = new EmailAuth({
   smtp: {
@@ -37,7 +37,7 @@ import {
   OTPExpiredError,
   InvalidOTPError,
   MaxAttemptsExceededError
-} from "email-auth-kit/errors";
+} from "@evlox/@evlox/email-auth-kit/errors";
 
 const router = express.Router();
 
@@ -109,7 +109,7 @@ export default router;
 ### Route 1: `app/api/auth/otp/send/route.js`
 ```javascript
 import { NextResponse } from "next/server";
-import { EmailAuth } from "email-auth-kit";
+import { EmailAuth } from "@evlox/email-auth-kit";
 
 // Use singleton instance in server context
 const auth = new EmailAuth({
@@ -143,8 +143,8 @@ export async function POST(request) {
 ### Route 2: `app/api/auth/otp/verify/route.js`
 ```javascript
 import { NextResponse } from "next/server";
-import { EmailAuth } from "email-auth-kit";
-import { OTPExpiredError, InvalidOTPError, MaxAttemptsExceededError } from "email-auth-kit/errors";
+import { EmailAuth } from "@evlox/email-auth-kit";
+import { OTPExpiredError, InvalidOTPError, MaxAttemptsExceededError } from "@evlox/@evlox/email-auth-kit/errors";
 
 const auth = new EmailAuth({
   smtp: {
@@ -189,7 +189,7 @@ export async function POST(request) {
 
 ```javascript
 import Fastify from "fastify";
-import { EmailAuth } from "email-auth-kit";
+import { EmailAuth } from "@evlox/email-auth-kit";
 
 const app = Fastify();
 const auth = new EmailAuth({

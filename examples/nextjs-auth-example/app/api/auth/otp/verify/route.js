@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { EmailAuth } from "email-auth-kit";
+import { EmailAuth } from "@evlox/email-auth-kit";
 import {
   OTPExpiredError,
   InvalidOTPError,
   MaxAttemptsExceededError
-} from "email-auth-kit/errors";
+} from "@evlox/@evlox/email-auth-kit/errors";
 
 const isMock = process.env.USE_MOCK_SMTP !== "false";
 

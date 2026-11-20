@@ -1,6 +1,6 @@
 # Security Architecture & Best Practices for email-auth-kit
 
-This document details the security model, cryptographic primitives, and production hardening checklist for `email-auth-kit`.
+This document details the security model, cryptographic primitives, and production hardening checklist for `@evlox/email-auth-kit`.
 
 ---
 

@@ -1,4 +1,4 @@
-import { Notify } from "notify-kit";
+import { Notify } from "@evlox/notify-kit";
 
 const notify = new Notify({
   smtp: {

@@ -25,7 +25,7 @@ export class InMemoryOTPStore extends OTPStore {
       !options.suppressWarning
     ) {
       console.warn(
-        "[email-auth-kit] WARNING: Using InMemoryOTPStore in production. " +
+        "[@evlox/email-auth-kit] WARNING: Using InMemoryOTPStore in production. " +
         "This store is NOT distributed and will fail across multiple server instances. " +
         "Use a Redis or database-backed store for production deployments."
       );

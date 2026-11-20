@@ -15,7 +15,7 @@
  *
  * Usage:
  * import pg from "pg";
- * import { EmailAuth } from "email-auth-kit";
+ * import { EmailAuth } from "@evlox/email-auth-kit";
  * import { PostgresOTPStore } from "./postgres-store.js";
  *
  * const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
@@ -24,7 +24,7 @@
  *   // ... other options
  * });
  */
-import { OTPStore } from "email-auth-kit";
+import { OTPStore } from "@evlox/email-auth-kit";
 
 export class PostgresOTPStore extends OTPStore {
   /**

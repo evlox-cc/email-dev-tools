@@ -6,7 +6,7 @@
  *
  * Usage:
  * import Redis from "ioredis";
- * import { EmailAuth } from "email-auth-kit";
+ * import { EmailAuth } from "@evlox/email-auth-kit";
  * import { RedisOTPStore } from "./redis-store.js";
  *
  * const redis = new Redis(process.env.REDIS_URL);
@@ -15,7 +15,7 @@
  *   // ... other options
  * });
  */
-import { OTPStore } from "email-auth-kit";
+import { OTPStore } from "@evlox/email-auth-kit";
 
 export class RedisOTPStore extends OTPStore {
   /**

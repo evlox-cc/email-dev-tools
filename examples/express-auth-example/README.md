@@ -1,6 +1,6 @@
 # Express Email OTP Authentication Example
 
-A complete, production-style Express application showcasing email OTP authentication with `email-auth-kit`.
+A complete, production-style Express application showcasing email OTP authentication with `@evlox/email-auth-kit`.
 
 ## Features
 - Two-step email login with one-time codes

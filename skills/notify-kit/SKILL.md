@@ -5,7 +5,7 @@ description: Production-grade AI agent skill to implement transactional email no
 
 # notify-kit Agent Skill (v1.0 Production Edition)
 
-This skill guides AI coding agents in designing, configuring, and implementing professional transactional email notifications using `notify-kit`.
+This skill guides AI coding agents in designing, configuring, and implementing professional transactional email notifications using `@evlox/notify-kit`.
 
 ---
 
@@ -23,7 +23,7 @@ Activate this skill when:
 
 Install the package via npm:
 ```bash
-npm install notify-kit
+npm install @evlox/notify-kit
 ```
 
 ---
@@ -46,7 +46,7 @@ Follow these eight steps systematically:
 Engage the developer collaboratively to discover exactly what notifications their app requires:
 
 1. **Ask for Required Notification Types**:
-   > *"I'm ready to set up your transactional notifications with `notify-kit`! To tailor this to your app, which notifications do you need right now?*
+   > *"I'm ready to set up your transactional notifications with `@evlox/notify-kit`! To tailor this to your app, which notifications do you need right now?*
    > - *1. **Welcome Emails** (sent immediately after user registration)*
    > - *2. **Order Receipts / Purchase Confirmations** (itemized breakdown with pricing)*
    > - *3. **Account / Security Alerts** (password changes, new logins, profile updates)*
@@ -75,7 +75,7 @@ Engage the developer collaboratively to discover exactly what notifications thei
    > *"I'll initialize `Notify` in mock transport mode (`jsonTransport: true`) so we can test the email templates and workflows safely in memory. Once you plug your credentials into `.env`, we'll connect live delivery."*
 
    > [!WARNING]
-   > Neither `notify-kit` nor `email-auth-kit` reads `USE_MOCK_SMTP`. Mock mode is activated strictly in code via `jsonTransport: true`. Keep mock mode restricted to local development; never enable it silently in production.
+   > Neither `@evlox/notify-kit` nor `@evlox/email-auth-kit` reads `USE_MOCK_SMTP`. Mock mode is activated strictly in code via `jsonTransport: true`. Keep mock mode restricted to local development; never enable it silently in production.
 
 ### Step 3: Configure Environment Variables
 Add safe placeholders to `.env.example`:
@@ -94,7 +94,7 @@ Create a centralized notification client (e.g. `lib/notifications.js`):
 
 **Production / Live SMTP Mode:**
 ```javascript
-import { Notify } from "notify-kit";
+import { Notify } from "@evlox/notify-kit";
 
 export const notify = new Notify({
   smtp: {
@@ -119,7 +119,7 @@ export const notify = new Notify({
 
 **Development Mock Mode:**
 ```javascript
-import { Notify } from "notify-kit";
+import { Notify } from "@evlox/notify-kit";
 
 export const notify = new Notify({
   from: process.env.EMAIL_FROM || '"My Product" <notifications@myproduct.com>',

@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "email-auth-kit": "file:../../packages/email-auth-kit",
+    "@evlox/email-auth-kit": "file:../../packages/email-auth-kit",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

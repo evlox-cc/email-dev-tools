@@ -1,4 +1,4 @@
-import { EmailAuth } from "email-auth-kit";
+import { EmailAuth } from "@evlox/email-auth-kit";
 
 // Initialize with environment variables or mock transport
 const auth = new EmailAuth({

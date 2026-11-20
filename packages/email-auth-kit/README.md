@@ -3,7 +3,7 @@
 Simple, secure email OTP authentication, email verification, and password reset for Node.js.
 
 ```bash
-npm install email-auth-kit
+npm install @evlox/email-auth-kit
 ```
 
 ---
@@ -28,7 +28,7 @@ npm install email-auth-kit
 ## Quick Start
 
 ```js
-import { EmailAuth } from "email-auth-kit";
+import { EmailAuth } from "@evlox/email-auth-kit";
 
 const auth = new EmailAuth({
   smtp: {
@@ -130,7 +130,7 @@ The default `InMemoryOTPStore` is suitable for development and single-process de
 For distributed or production systems, implement a custom adapter extending `OTPStore`:
 
 ```js
-import { OTPStore } from "email-auth-kit";
+import { OTPStore } from "@evlox/email-auth-kit";
 
 class MyRedisStore extends OTPStore {
   async set(key, data, ttlSeconds) { /* ... */ }

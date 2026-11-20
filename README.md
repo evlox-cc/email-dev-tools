@@ -10,8 +10,8 @@ This monorepo contains two independent npm packages and two AI agent skills.
 
 | Package | Description | Install |
 |---|---|---|
-| [`email-auth-kit`](packages/email-auth-kit) | Email OTP authentication, verification, and password reset | `npm install email-auth-kit` |
-| [`notify-kit`](packages/notify-kit) | Transactional email notifications with responsive templates | `npm install notify-kit` |
+| [`@evlox/email-auth-kit`](packages/email-auth-kit) | Email OTP authentication, verification, and password reset | `npm install @evlox/email-auth-kit` |
+| [`@evlox/notify-kit`](packages/notify-kit) | Transactional email notifications with responsive templates | `npm install @evlox/notify-kit` |
 
 Both packages are **fully independent** — neither depends on the other.
 

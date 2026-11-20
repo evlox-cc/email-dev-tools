@@ -1,5 +1,5 @@
 {
-  "name": "notify-kit",
+  "name": "@evlox/notify-kit",
   "version": "1.0.0",
   "description": "Simple transactional email notifications with responsive templates for Node.js",
   "type": "module",
