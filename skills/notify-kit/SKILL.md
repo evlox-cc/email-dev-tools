@@ -1,21 +1,21 @@
 ---
 name: notify-kit
-description: Use when a developer asks to add transactional email notifications, welcome emails, order confirmations, account alerts, or SMTP notification workflows using notify-kit to Node.js applications (Express, Fastify, Next.js, NestJS).
+description: Production-grade AI agent skill to implement transactional email notifications with notify-kit. Asks developers for their notification requirements (welcome emails, order receipts, security alerts, custom emails), configures product branding (app name, brand colors, logo), sets up SMTP, and integrates non-blocking notification workflows across Node.js backends.
 ---
 
-# notify-kit Agent Skill
+# notify-kit Agent Skill (v1.0 Production Edition)
 
-This skill guides AI coding agents in adding transactional email notifications, welcome messages, order confirmations, and activity alerts using `notify-kit`.
+This skill guides AI coding agents in designing, configuring, and implementing professional transactional email notifications using `notify-kit`.
 
 ---
 
 ## 1. Purpose & Triggers
 
 Activate this skill when:
-- The developer asks to add transactional email notifications to an existing Node.js application.
+- The developer asks to add transactional email notifications to an application.
 - The developer asks to send welcome emails upon user registration.
-- The developer requests order confirmation emails upon purchase completion.
-- The developer asks to configure transactional SMTP mailing with pre-built HTML templates.
+- The developer asks to send itemized order confirmations or payment receipts.
+- The developer requests security alerts, password change notifications, or custom branded email templates.
 
 ---
 
@@ -28,53 +28,57 @@ npm install notify-kit
 
 ---
 
-## 3. Step-by-Step Implementation Workflow
+## 3. Production Implementation Workflow
 
-### Step 1: Inspect the Existing Application & Discover Product Branding
-1. Read `package.json` to identify:
-   - Application/product name (`"name"` field, title tag in public templates, or layout metadata).
-   - Framework (`express`, `fastify`, `next`, `nest`, etc.).
-   - Module format (ESM or CommonJS).
-2. **Discover product branding**:
-   - Locate the product's primary brand color from Tailwind config, CSS root variables (`--primary`), or style sheets.
-   - Locate the logo URL/path (`public/logo.png`, `public/icon.png`) and support email.
-3. Locate where the target business event occurs (e.g. `registerUser()`, `createOrder()`, `processCheckout()`).
-4. Locate existing environment variable configuration (`.env`, `.env.example`).
+Follow these eight steps systematically:
 
-### Step 2: Proactive SMTP Verification, Product Branding & Setup
-Check if `.env` already has active SMTP credentials and product details:
+### Step 1: Discover Existing Architecture & Brand Identity
+1. **Identify Product & Brand Design Tokens**:
+   - Product name from `package.json` (`name`), HTML `<title>`, or layout metadata.
+   - Primary brand color from Tailwind config, CSS variables (`--primary`), or style sheets.
+   - Product logo and favicon from `public/`.
+2. **Inspect Backend Architecture**:
+   - Framework: Express, Fastify, Next.js, or NestJS.
+   - Module format: ESM or CommonJS.
+   - Identify where key business events occur (e.g. user signup handler, checkout controller, stripe webhook).
 
-1. **Brand & Product Customization**:
-   - Confirm or ask for the product name and primary brand color:
-     > *"I found your product name **[Product Name]** and brand color **[#color]**. I will apply these to your email notification templates so that customer receipts and welcome emails match your product branding."*
+### Step 2: Interactive Requirements Interview & Brand Customization
+Engage the developer collaboratively to discover exactly what notifications their app requires:
 
-2. **If SMTP credentials are missing**, ask the developer immediately:
-   > *"I see your application needs to send transactional emails, but SMTP credentials aren't configured yet.*
+1. **Ask for Required Notification Types**:
+   > *"I'm ready to set up your transactional notifications with `notify-kit`! To tailor this to your app, which notifications do you need right now?*
+   > - *1. **Welcome Emails** (sent immediately after user registration)*
+   > - *2. **Order Receipts / Purchase Confirmations** (itemized breakdown with pricing)*
+   > - *3. **Account / Security Alerts** (password changes, new logins, profile updates)*
+   > - *4. **Custom Branded Notifications** (custom layout and dynamic data)*
    > 
-   > *Do you already have your SMTP details (like a Gmail App Password, Resend, or SendGrid API key), or would you like me to walk you through how to generate a free Gmail App Password step-by-step?"*
+   > *Please let me know which of these you'd like me to implement!"*
 
-3. **If the developer responds "Yes" or asks for setup instructions**:
-   Walk them through the Gmail App Password flow:
-   - **Step A**: Ensure **2-Step Verification** is enabled on Google Account: `https://myaccount.google.com/security`.
-   - **Step B**: Go to `https://myaccount.google.com/apppasswords` and generate an App Password.
-   - **Step C**: Instruct them to add it to their local `.env` file under `SMTP_PASS` (remind them: **do NOT paste it into chat**).
+2. **Confirm Brand Styling**:
+   > *"I detected your product name **[Product Name]** and brand color **[#color]**. I will apply these to your email templates so all outgoing emails feature your logo, brand colors, and support links."*
 
-4. **Local Development Without SMTP Credentials (Mock Transport)**:
-   If SMTP credentials are not yet configured, initialize `Notify` in mock mode using `jsonTransport: true`.
-   > [!IMPORTANT]
-   > Neither `notify-kit` nor `email-auth-kit` reads `USE_MOCK_SMTP`. Do **not** tell developers that setting an environment variable like `USE_MOCK_SMTP=true` automatically activates mock mode. Mock mode is activated strictly in code by passing `jsonTransport: true`.
+3. **Proactive SMTP Verification**:
+   - Check `.env` for valid `SMTP_HOST`, `SMTP_USER`, and `SMTP_PASS`.
+   - If missing:
+     > *"To deliver real emails to customers, we need an SMTP provider.*
+     > 
+     > *Do you already have SMTP credentials (such as a Gmail App Password, Resend, or SendGrid API key), or would you like me to guide you through creating a free Gmail App Password?"*
 
-   Tell the developer:
-   > *"Since SMTP credentials aren't set yet, I'll initialize `Notify` in mock transport mode (`jsonTransport: true`). This tests notification and template generation safely in memory with your product branding without sending real emails. Once you add your SMTP credentials to `.env`, we'll replace mock mode with your live SMTP configuration."*
+4. **When Setup Instructions Are Requested**:
+   Provide the 3-step Gmail App Password guide:
+   - **Step A**: Enable **2-Step Verification** at [https://myaccount.google.com/security](https://myaccount.google.com/security).
+   - **Step B**: Generate an App Password at [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords).
+   - **Step C**: Add it to `.env` under `SMTP_PASS`. Remind them: **never paste secrets into the chat**.
+
+5. **Local Development Without Credentials (Mock Mode)**:
+   If credentials are not yet set, initialize with `jsonTransport: true`:
+   > *"I'll initialize `Notify` in mock transport mode (`jsonTransport: true`) so we can test the email templates and workflows safely in memory. Once you plug your credentials into `.env`, we'll connect live delivery."*
 
    > [!WARNING]
-   > Keep mock mode restricted strictly to local development and automated tests. Never enable it silently in production. When real SMTP credentials become available, replace mock mode with the actual SMTP configuration.
-
-> [!CAUTION]
-> NEVER request the developer's normal Google Account password or ask them to type credentials into the conversation. Instruct them to add secrets directly to their local `.env`.
+   > Neither `notify-kit` nor `email-auth-kit` reads `USE_MOCK_SMTP`. Mock mode is activated strictly in code via `jsonTransport: true`. Keep mock mode restricted to local development; never enable it silently in production.
 
 ### Step 3: Configure Environment Variables
-Add placeholders to `.env.example`:
+Add safe placeholders to `.env.example`:
 ```env
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
@@ -83,29 +87,12 @@ SMTP_USER=your-email@gmail.com
 SMTP_PASS=your-16-char-app-password
 EMAIL_FROM="My Application <notifications@example.com>"
 ```
-Direct developer to [SMTP Setup](references/smtp-setup.md) for generating credentials.
+Ensure `.env` is listed in `.gitignore`.
 
 ### Step 4: Initialize the `Notify` Client
-Create a singleton notification client (e.g. `lib/notifications.js`).
+Create a centralized notification client (e.g. `lib/notifications.js`):
 
-**When SMTP credentials are unavailable (Local Development / Mock Mode):**
-Initialize using `jsonTransport: true` to test email generation without sending real emails:
-```javascript
-import { Notify } from "notify-kit";
-
-export const notify = new Notify({
-  from: process.env.EMAIL_FROM || "Test App <test@example.com>",
-  jsonTransport: true,
-  branding: {
-    appName: process.env.APP_NAME || "My Application",
-    primaryColor: "#2563eb",
-    supportEmail: process.env.SUPPORT_EMAIL || "support@example.com"
-  }
-});
-```
-
-**When real SMTP credentials become available (Live Delivery Mode):**
-Replace the mock initialization with the actual SMTP configuration:
+**Production / Live SMTP Mode:**
 ```javascript
 import { Notify } from "notify-kit";
 
@@ -116,51 +103,78 @@ export const notify = new Notify({
     secure: process.env.SMTP_SECURE === "true",
     auth: {
       user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
+      pass: process.env.SMTP_PASS?.replace(/\s+/g, "")
     }
   },
-  from: process.env.EMAIL_FROM,
+  from: process.env.EMAIL_FROM || '"My Product" <notifications@myproduct.com>',
   branding: {
-    appName: process.env.APP_NAME || "My Application",
-    primaryColor: "#2563eb",
-    supportEmail: process.env.SUPPORT_EMAIL || "support@example.com"
+    appName: process.env.APP_NAME || "My Product",
+    primaryColor: process.env.PRIMARY_COLOR || "#6366f1",
+    logo: process.env.LOGO_URL || "https://myproduct.com/logo.png",
+    supportEmail: process.env.SUPPORT_EMAIL || "support@myproduct.com",
+    footer: "© 2026 My Product Inc. All rights reserved."
   }
 });
 ```
 
-### Step 5: Integrate Notifications into Target Business Workflows
-Follow the non-blocking pattern described in [Integration Guide](references/integration-guide.md):
-- **Welcome Emails**: Place inside the registration handler **after** successful user creation in the database.
-- **Order Confirmations**: Place inside checkout/order creation **after** order persistence.
-- **Safety**: Attach `.catch((err) => console.error(...))` so email transport failure never rolls back or crashes the user's primary transaction.
+**Development Mock Mode:**
+```javascript
+import { Notify } from "notify-kit";
 
-### Step 6: Use Built-in or Custom Templates
-Use built-in methods:
-- `notify.sendWelcome({ to, name, actionUrl })`
-- `notify.sendOrderConfirmation({ to, orderId, amount, items })`
-- `notify.sendAccountNotification({ to, title, message, actionUrl })`
-- `notify.sendPasswordResetNotification({ to, ipAddress, device })`
-- `notify.sendCustom({ to, subject, html })`
+export const notify = new Notify({
+  from: process.env.EMAIL_FROM || '"My Product" <notifications@myproduct.com>',
+  jsonTransport: true,
+  branding: {
+    appName: "My Product",
+    primaryColor: "#6366f1"
+  }
+});
+```
 
-Or register custom templates as detailed in [Templates Reference](references/templates.md).
+### Step 5: Integrate Non-Blocking Notifications into Business Logic
+Connect notifications strictly following non-blocking resilience:
+- **Registration**: Dispatch `sendWelcome()` **after** the user is committed to the database.
+- **Checkout**: Dispatch `sendOrderConfirmation()` **after** order persistence and payment capture.
+- **Resilience Guarantee**: Attach `.catch((err) => console.error("Notification failed:", err.message))` so that email transport downtime never fails a customer's primary transaction.
 
-### Step 7: Testing
-- In automated tests, pass `jsonTransport: true` to prevent sending real emails.
-- Verify message rendering, recipient normalization, and error handling.
-- Only mark delivery verified after the developer tests locally with valid credentials.
+```javascript
+// Example: Non-blocking checkout integration
+const order = await db.orders.create({ ... });
+
+notify.sendOrderConfirmation({
+  to: order.customerEmail,
+  orderId: order.id,
+  amount: order.total,
+  customerName: order.customerName,
+  items: order.items,
+  viewOrderUrl: `https://myproduct.com/orders/${order.id}`
+}).catch((err) => {
+  console.error(`[Notification Warning] Failed to send order email for ${order.id}:`, err.message);
+});
+
+return res.json({ success: true, orderId: order.id });
+```
+
+### Step 6: Custom Templates (When Requested)
+If the developer needs specialized notifications (e.g. renewal notices, invite emails), register reusable templates:
+```javascript
+notify.registerTemplate("team_invite", (branding, data) => ({
+  subject: `${data.inviterName} invited you to join ${branding.appName}`,
+  html: `
+    <h2>You've been invited!</h2>
+    <p>${data.inviterName} invited you to collaborate on ${branding.appName}.</p>
+    <a href="${data.inviteUrl}">Accept Invitation</a>
+  `,
+  text: `${data.inviterName} invited you to join ${branding.appName}: ${data.inviteUrl}`
+}));
+```
+
+### Step 7: Testing & Verification
+- Test all notification dispatches using mock transport in automated test suites.
+- Verify that recipient lists, attachments, and dynamic data variables render accurately.
 
 ### Step 8: Completion Report
-Provide:
-- Summary of integration points.
-- Required `.env` keys.
-- Command to run and test.
-
----
-
-## 4. Key Rules & Best Practices
-
-1. **Non-Blocking Delivery**: Never block or abort critical database operations if an email fails.
-2. **Acceptance vs Delivery**: Document that SMTP acceptance confirms server acceptance, not guaranteed inbox delivery.
-3. **Template Escaping**: Escape all dynamic variables to prevent HTML injection.
-4. **Independent Library**: `notify-kit` has zero dependencies on `email-auth-kit`.
-
+Provide a clean summary:
+- Integrated notification workflows.
+- Configured brand tokens (name, primary color, logo).
+- Instructions to test locally and switch to live SMTP.
